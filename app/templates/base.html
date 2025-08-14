@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Management</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .pagination { margin-top: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input, select { width: 100%; padding: 8px; }
+        .button { background-color: #4CAF50; color: white; padding: 10px 15px; text-decoration: none; }
+        .button.delete { background-color: #f44336; }
+    </style>
+</head>
+<body>
+    <h1>Employee Management System</h1>
+    {% block content %}{% endblock %}
+</body>
+</html>

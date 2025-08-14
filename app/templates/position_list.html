@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Список должностей</h2>
+<a href="/positions/create" class="button">Добавить новую должность</a>
+
+<table>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+        </tr>
+    </table>
+    <tbody>
+        {% for positions in positions %}
+        <tr>
+            <td>{{ positions.id }}</td>
+            <td>{{ positions.Название }}</td>
+            <td>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

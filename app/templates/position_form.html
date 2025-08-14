@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2> Создать новую должность</h2>
+
+<form method="post" action="/positions/">
+    <div class="form-group">
+        <label for="Название"> Название должности: </label>
+        <input type="text" id="Название" name="Название" required>
+    </div>
+    <button type="submit"> Создать</button>
+    <a href="/positions/" class="button">Отмена</a>
+</form>
+{% endblock %}

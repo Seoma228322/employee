@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{% if employee %}Редактировать Сотрудника{% else %}Создать Нового Сотрудника{% endif %}</h2>
+    
+    <form method="post" action="{% if employee %}/employees/{{ employee.id }}/update{% else %}/employees/{% endif %}">
+        <div class="form-group">
+            <label for="ФИО">ФИО:</label>
+            <input type="text" id="ФИО" name="ФИО" value="{{ employee.ФИО if employee else '' }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="Дата_ДР">Дата Рождения:</label>
+            <input type="date" id="Дата_ДР" name="Дата_ДР" value="{{ employee.ДР.strftime('%Y-%m-%d') if employee and employee.ДР else '' }}" required>
+        </div>
+
+        <!-- НОВЫЕ ПОЛЯ -->
+        <div class="form-group">
+            <label for="Дата_Начала">Дата приема на работу:</label>
+            <input type="date" id="Дата_Начала" name="Дата_Начала" value="{{ employee.Дата_Начала.strftime('%Y-%m-%d') if employee and employee.Дата_Начала else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="ЗП">Зарплата (ЗП):</label>
+            <input type="number" id="ЗП" step="0.01" name="ЗП" value="{{ employee.ЗП if employee else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Ставка">Ставка (0.5-1.5):</label>
+            <input type="number" id="Ставка" step="0.1" min="0.5" max="1.5" name="Ставка" value="{{ employee.Ставка if employee else 1.0 }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Статус">Статус:</label>
+            <select name="Статус" id="Статус" required>
+                <option value="">-- Выберите статус --</option>
+                <option value="Работает" {% if employee and employee.Статус == 'Работает' %}selected{% endif %}>Работает</option>
+                <option value="Отпуск" {% if employee and employee.Статус == 'Отпуск' %}selected{% endif %}>Отпуск</option>
+                <option value="Уволен" {% if employee and employee.Статус == 'Уволен' %}selected{% endif %}>Уволен</option>
+                <option value="Больничный" {% if employee and employee.Статус == 'Больничный' %}selected{% endif %}>Больничный</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="Номер_телефона">Номер Телефона:</label>
+            <input type="tel" id="Номер_телефона" name="Номер_телефона" value="{{ employee.Номер_телефона if employee else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="{{ employee.email if employee else '' }}" required>
+        </div>
+        <!-- КОНЕЦ НОВЫХ ПОЛЕЙ -->
+
+        <div class="form-group">
+            <label for="ID_Должности">Должность:</label>
+            <select name="ID_Должности" id="ID_Должности" required>
+                <option value="">-- Выберите должность --</option>
+                {% for position in positions %}
+                    <option value="{{ position.id }}" 
+                        {% if employee and employee.ID_Должности == position.id %}selected{% endif %}>
+                        {{ position.Название }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="ID_Отдела">Отдел:</label>
+            <select name="ID_Отдела" id="ID_Отдела" required>
+                <option value="">-- Выберите отдел --</option>
+                 {% for department in departments %}
+                    <option value="{{ department.id }}" 
+                        {% if employee and employee.ID_Отдела == department.id %}selected{% endif %}>
+                        {{ department.Название }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <button type="submit" class="button">{% if employee %}Обновить{% else %}Создать{% endif %}</button>
+        <a href="{% if employee %}/employees/{{ employee.id }}{% else %}/{% endif %}" class="button">Отмена</a>
+    </form>
+{% endblock %}

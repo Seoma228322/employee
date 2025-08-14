@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Список отделов</h2>
+<a href="/departments/create" class="button">Добавить новый отдел</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for department in departments %}
+        <tr>
+            <td>{{ department.id }}</td>
+            <td>{{ department.Название }}</td>
+            <td>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
