@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Список сотрудников</h2>
+    <a href="/employees/create" class="button">Добавить нового сотрудника</a>
+    <a href="/departments/create" class="button">Добавить новый отдел</a>
+    <a href="/positions/create" class="button">Добавить новую Должность</a>
+
+    <label for="filter-toggle" class="filter-toggle">
+        <input type="checkbox" id="filter-toggle" class="hidden-checkbox">
+        <span>Фильтры поиска <span class="arrow">▼</span></span>
+        <div class="filter-form">
+            <form method="get">
+                <div class="form-group">
+                    <label for="ФИО">ФИО:</label>
+                    <input type="text" name="ФИО" value="{{ filters.ФИО }}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="Мин_ЗП">Минимальная ЗП:</label>
+                    <input type="number" name="Мин_ЗП" step="0.01" value="{{ filters.Мин_ЗП }}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="Макс_ЗП">Максимальная ЗП:</label>
+                    <input type="number" name="Макс_ЗП" step="0.01" value="{{ filters.Макс_ЗП }}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="Дата_Начала">Дата Начала:</label>
+                    <input type="date" name="Дата_Начала" value="{{ filters.Дата_Начала }}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="Дата_Окончания">Дата окончания:</label>
+                    <input type="date" name="Дата_Окончания" value="{{ filters.Дата_Окончания }}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="ID_Отдела">Отдел:</label>
+                    <select name="ID_Отдела">
+                        <option value="">Все отделы</option>
+                        {% for department in departments %}
+                            <option value="{{ department.id }}" 
+                                {% if filters.ID_Отдела == department.id|string %}selected{% endif %}>
+                                {{ department.Название }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <button type="submit">Применить</button>
+            </form>
+        </div>
+    </label>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ФИО</th>
+                <th>Должность</th>
+                <th>Отдел</th>
+                <th>ЗП</th>
+                <th>Статус</th>
+                <th>Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in employees %}
+            <tr>
+                <td>{{ employee.id }}</td>
+                <td>{{ employee.ФИО }}</td>
+                <td>{{ employee.Должность.Название if employee.Должность else '' }}</td>
+                <td>{{ employee.Отдел.Название if employee.Отдел else '' }}</td>
+                <td>{{ employee.ЗП }}</td>
+                <td>{{ employee.Статус }}</td>
+                <td>
+                    <a href="/employees/{{ employee.id }}">Просмотр</a>
+                    <a href="/employees/{{ employee.id }}/edit">Редактировать</a>
+                    <form action="/employees/{{ employee.id }}/delete" method="post" style="display:inline;">
+                        <button type="submit" class="button delete">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        {% if pagination.skip > 0 %}
+            <a href="/?skip={{ pagination.skip - pagination.limit }}&limit={{ pagination.limit }}">Previous</a>
+        {% endif %}
+        
+        {% if employees|length == pagination.limit %}
+            <a href="/?skip={{ pagination.skip + pagination.limit }}&limit={{ pagination.limit }}">Next</a>
+        {% endif %}
+    </div>
+
+    <style>
+        .hidden-checkbox {
+            position: absolute;
+            opacity: 0;
+            height: 0;
+            width: 0;
+        }
+        
+        .filter-toggle {
+            cursor: pointer;
+            margin: 15px 0;
+            padding: 5px;
+            display: inline-block;
+            background: #f0f0f0;
+            border-radius: 4px;
+            position: relative;
+        }
+        
+        .filter-toggle:hover {
+            background: #e0e0e0;
+        }
+        
+        .filter-form {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f8f8;
+            border-radius: 4px;
+        }
+        
+        .hidden-checkbox:checked ~ .filter-form {
+            display: block;
+        }
+        
+        .hidden-checkbox:checked ~ span .arrow {
+            transform: rotate(180deg);
+            display: inline-block;
+        }
+        
+        .arrow {
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+    </style>
+{% endblock %}
