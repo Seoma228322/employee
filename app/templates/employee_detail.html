@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>Employee Details</h2>
+    <h2>Сотрудник</h2>
     <p><strong>ID:</strong> {{ employee.id }}</p>
     <p><strong>ФИО:</strong> {{ employee.ФИО }}</p>
     <p><strong>Дата_ДР:</strong> {{ employee.Дата_ДР }}</p>
@@ -15,5 +15,6 @@
     <p><strong>Дата_Начала:</strong> {{ employee.Дата_Начала }}</p>
     
     <a href="/employees/{{ employee.id }}/edit" class="button">Edit</a>
-    <a href="/" class="button">Back to List</a>
+    <a href="/" class="button">Вернуться к тпблице</a>
+
 {% endblock %}
