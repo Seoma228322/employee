@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>Сотрудник</h2>
+    <h2>Детали</h2>
     <p><strong>ID:</strong> {{ employee.id }}</p>
     <p><strong>ФИО:</strong> {{ employee.ФИО }}</p>
-    <p><strong>Дата_ДР:</strong> {{ employee.Дата_ДР }}</p>
-    <p><strong>Должность:</strong> {{ employee.Должность.Названия }}</p>
-    <p><strong>Отдел:</strong> {{ employee.Отдел.Названия }}</p>
+    <p><strong>Дата_ДР:</strong> {{ employee.ДР }}</p>
+    <p><strong>Должность:</strong> {{ employee.Должность.Название }}</p>
+    <p><strong>Отдел:</strong> {{ employee.Отдел.Название }}</p>
     <p><strong>ЗП:</strong> {{ employee.ЗП }}</p>
     <p><strong>Ставка:</strong> {{ employee.Ставка }}</p>
     <p><strong>Статус:</strong> {{ employee.Статус }}</p>
@@ -16,7 +16,4 @@
     
     <a href="/employees/{{ employee.id }}/edit" class="button">Редактировать</a>
     <a href="/" class="button">Назад</a>
-
 {% endblock %}
-
-
