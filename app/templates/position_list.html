@@ -1,25 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Список должностей</h2>
-<a href="/positions/create" class="button">Добавить новую должность</a>
+    <h2>Список должностей</h2>
+    <a href="/positions/create" class="button">Добавить новую должность</a>
 
-<table>
     <table>
-        <tr>
-            <th>ID</th>
-            <th>Название</th>
-        </tr>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for position in positions %}
+            <tr>
+                <td>{{ position.id }}</td>
+                <td>{{ position.Название }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
-    <tbody>
-        {% for positions in positions %}
-        <tr>
-            <td>{{ positions.id }}</td>
-            <td>{{ positions.Название }}</td>
-            <td>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+
+    <a href="/" class="button">назад</a>
 {% endblock %}
