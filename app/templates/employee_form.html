@@ -79,5 +79,4 @@
         <button type="submit" class="button">{% if employee %}Обновить{% else %}Создать{% endif %}</button>
         <a href="{% if employee %}/employees/{{ employee.id }}{% else %}/{% endif %}" class="button">Отмена</a>
     </form>
-
 {% endblock %}
