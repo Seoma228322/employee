@@ -14,7 +14,6 @@
             <input type="date" id="Дата_ДР" name="Дата_ДР" value="{{ employee.ДР.strftime('%Y-%m-%d') if employee and employee.ДР else '' }}" required>
         </div>
 
-        <!-- НОВЫЕ ПОЛЯ -->
         <div class="form-group">
             <label for="Дата_Начала">Дата приема на работу:</label>
             <input type="date" id="Дата_Начала" name="Дата_Начала" value="{{ employee.Дата_Начала.strftime('%Y-%m-%d') if employee and employee.Дата_Начала else '' }}" required>
@@ -50,7 +49,6 @@
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" value="{{ employee.email if employee else '' }}" required>
         </div>
-        <!-- КОНЕЦ НОВЫХ ПОЛЕЙ -->
 
         <div class="form-group">
             <label for="ID_Должности">Должность:</label>
@@ -81,4 +79,5 @@
         <button type="submit" class="button">{% if employee %}Обновить{% else %}Создать{% endif %}</button>
         <a href="{% if employee %}/employees/{{ employee.id }}{% else %}/{% endif %}" class="button">Отмена</a>
     </form>
+
 {% endblock %}
